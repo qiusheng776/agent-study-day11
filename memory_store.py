@@ -23,6 +23,13 @@ def read_memory():
 
 # 保存内存
 def save_memory(messages):
+    # 如果传进来[]就是清空
+    if messages == []:
+        messages = {
+            'recent_messages': [],
+            'last_tool_call':None,
+            'last_topic':None
+        }   
     # 保存消息到文件
     data = {
         "recent_messages": messages['recent_messages'],

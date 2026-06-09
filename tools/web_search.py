@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-def web_search(query, max_result=5):
+def web_search(query:str, max_result:int=5):
     usl = 'https://duckduckgo.com/html/'
 
     params = {
@@ -21,7 +21,7 @@ def web_search(query, max_result=5):
     except response.RequestException as e:
         return {
             'success': False,
-            'messsage':f'联网搜索失败{e}',
+            'message':f'联网搜索失败{e}',
             'data':None
         }
 
@@ -67,3 +67,7 @@ def web_search(query, max_result=5):
             'results': results
         }
     }
+
+if __name__ == '__main__':
+    result = web_search('Python编程')
+    print(result)

@@ -90,7 +90,7 @@ ConvertTo-Json
 
         candidates.append({
             "path": path,
-            "size_mb": round(size_mb, 2),
+            "size_mb": f"{round(size_mb, 2)}MB",
             "modified_time": modified_time,
             "reason": "Windows 临时目录中的大文件，可能可以清理，但需要用户确认"
         })
@@ -107,8 +107,8 @@ ConvertTo-Json
     }
 
 
-# # 这段只在直接运行本文件时执行
-# if __name__ == "__main__":
-#     result = scan_windows_temp_files()
+# 这段只在直接运行本文件时执行
+if __name__ == "__main__":
+    result = scan_windows_temp_files()
 
-#     print(json.dumps(result, ensure_ascii=False, indent=2))
+    print(json.dumps(result, ensure_ascii=False, indent=2))

@@ -1,4 +1,5 @@
 import json
+from tool_registry import TOOLS
 
 def parse_tool_call_result(model_text):
     try:
@@ -46,9 +47,23 @@ def parse_tool_call_result(model_text):
         if not isinstance(arguments,dict):
             errors.append('argument 必须是字典')
         
-        allowed_tools = ['get_github_user', 'get_windows_disk_status', 'scan_windows_temp_files','web_search','scan_windows_downloads']
+        allowed_tools = list(TOOLS.keys())
         if tool_name not in allowed_tools:
             errors.append('tool_name必须是已注册的工具')
+            return {
+                'success':success,
+                'need_tool':need_tool,
+                'tool_name':tool_name,
+                'arguments':arguments,
+                'message':message,
+                'error':errors
+            }
+
+        tool_info = TOOLS.get(tool_name)
+        required_args = tool_info.get('required', [])
+        for arg in required_args:
+            if arg not in arguments:
+                errors.append(f'{arg} 是必需的')
 
         if tool_name == 'get_github_user' and isinstance(arguments, dict):
             username = arguments.get('username')

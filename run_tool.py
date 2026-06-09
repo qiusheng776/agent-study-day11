@@ -14,19 +14,7 @@ def run_tool(tool_name, arguments):
     if arguments is None:
         arguments = {}
 
-    if tool_name == 'get_github_user':
-        return function(arguments['username'])
-
-    if tool_name == 'scan_windows_temp_files':
-        return function(arguments.get('min_size_mb', 100), arguments.get('max_items', 50))
-    
-    if tool_name == 'web_search':
-        return function(arguments['query'], arguments.get('max_result', 5))
-
-    if tool_name == 'scan_windows_downloads':
-        return function(arguments.get('min_size_mb', 50), arguments.get('max_items', 30))
-    
-    return function()
+    return function(**arguments)
 
 
 def list_tools(tool_name=None):

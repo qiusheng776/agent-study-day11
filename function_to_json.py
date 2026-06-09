@@ -47,4 +47,5 @@ def function_to_json(func):
         },
     }
 
-print(function_to_json(scan_windows_temp_files))
+if __name__ == "__main__":
+    print(function_to_json(scan_windows_temp_files))

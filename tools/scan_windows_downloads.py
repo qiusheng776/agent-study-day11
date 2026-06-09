@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-def scan_windows_downloads(min_size_mb=50, max_items=30):
+def scan_windows_downloads(min_size_mb:int=50, max_items:int=30):
     downloads_path = Path(r"C:\Users\q1817\Downloads")
 
     if not downloads_path.exists():

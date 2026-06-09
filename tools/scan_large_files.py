@@ -3,7 +3,7 @@ from pathlib import Path
 
 # 根据文件路径，大致判断这个文件属于哪一类。
 # 注意：这里只是给 LLM 做参考，不代表一定能删除。
-def classify_path(file_path):
+def classify_path(file_path:str):
     # 把 Path 对象转成字符串，并统一转成小写，方便后面判断路径里包含什么关键词。
     path_text = str(file_path).lower()
 
