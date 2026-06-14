@@ -1,7 +1,8 @@
 import subprocess
 import json
+from tool_registry import tool
 
-
+@tool
 def scan_windows_temp_files(min_size_mb:int = 10, max_items:int = 30):
     # 1. 准备 PowerShell 命令
     # $env:TEMP：当前用户的临时文件夹

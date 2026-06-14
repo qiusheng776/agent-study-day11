@@ -2,7 +2,26 @@ import subprocess
 import json
 
 
+from tool_registry import tool
+
+@tool
 def get_windows_disk_status():
+    """
+    工具介绍：
+    查询 Windows 本地硬盘的盘符、总容量、剩余空间、已用空间和使用率。
+
+    工具如何使用：
+    不需要传入参数，Agent 需要了解 C 盘、D 盘、E 盘等磁盘空间时调用。
+
+    工具使用示例：
+    get_windows_disk_status()
+
+    工具边界：
+    只读取本地磁盘容量信息，不扫描具体文件，不删除文件，不清理磁盘。
+
+    返回结构说明：
+    返回 dict，包含 success、message、data。成功时 data.disks 是列表，每项包含 drive、total_gb、free_gb、used_gb、used_percent；失败时 data.error 保存 PowerShell 错误信息。
+    """
     # 1. 准备 PowerShell 命令
     # Get-CimInstance Win32_LogicalDisk：获取 Windows 逻辑磁盘信息
     # DriveType=3：只选择本地硬盘，不要光驱、网络盘等

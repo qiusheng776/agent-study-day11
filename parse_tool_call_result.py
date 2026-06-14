@@ -12,7 +12,7 @@ def parse_tool_call_result(model_text):
              "tool_name": None,
              "arguments": {},
              "message": "",
-             "error": "模型输出不是合法 JSON",
+             "error": ["模型输出不是合法 JSON"],
              "raw_output": model_text
         }
     # 如果不是字典，报错
@@ -23,7 +23,7 @@ def parse_tool_call_result(model_text):
              "tool_name": None,
              "arguments": {},
              "message": "",
-             "error": "模型输出不是字典",
+             "error": ["模型输出不是字典"],
              "raw_output": model_text
         }
     
@@ -51,11 +51,11 @@ def parse_tool_call_result(model_text):
         if tool_name not in allowed_tools:
             errors.append('tool_name必须是已注册的工具')
             return {
-                'success':success,
-                'need_tool':need_tool,
-                'tool_name':tool_name,
-                'arguments':arguments,
-                'message':message,
+                'success': False,
+                'need_tool': False,
+                'tool_name': None,
+                'arguments': {},
+                'message': message,
                 'error':errors
             }
 

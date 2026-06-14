@@ -1,6 +1,8 @@
 from pathlib import Path
 
 
+from tool_registry import tool
+
 # 根据文件路径，大致判断这个文件属于哪一类。
 # 注意：这里只是给 LLM 做参考，不代表一定能删除。
 def classify_path(file_path:str):
@@ -32,7 +34,24 @@ def classify_path(file_path:str):
 # root_path：从哪个目录开始扫描，默认是整个 C 盘。
 # min_size_mb：只保留大于多少 MB 的文件，默认 500MB。
 # max_items：最多返回多少个文件，默认返回前 50 个。
+@tool
 def scan_large_files(root_path="C:/", min_size_mb=500, max_items=50):
+    """
+    工具介绍：
+    从指定目录递归扫描大文件，并按文件大小从大到小返回候选列表。
+
+    工具如何使用：
+    传入 root_path 指定扫描起点，传入 min_size_mb 设置最小文件大小，传入 max_items 控制最多返回多少个文件。
+
+    工具使用示例：
+    scan_large_files(root_path="C:/Users/q1817/Downloads", min_size_mb=500, max_items=20)
+
+    工具边界：
+    只扫描和分类大文件，不删除文件；category 只是粗略风险标签，不能作为自动删除依据。
+
+    返回结构说明：
+    返回 dict，包含 success、message、data。成功时 data 包含 root_path、min_size_mb、max_items、skipped_count、items；items 是列表，每项包含 name、path、size_mb、category。失败时 data 包含 root_path 和空 items。
+    """
     # 把字符串路径变成 Path 对象，后面才能用 exists、rglob、stat 这些方法。
     root = Path(root_path)
 

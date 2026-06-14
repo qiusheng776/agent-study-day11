@@ -1,4 +1,3 @@
-from tools.scan_windows_temp_files import scan_windows_temp_files
 import inspect
 
 def function_to_json(func):
@@ -48,4 +47,6 @@ def function_to_json(func):
     }
 
 if __name__ == "__main__":
+    from tools.scan_windows_temp_files import scan_windows_temp_files
+
     print(function_to_json(scan_windows_temp_files))
